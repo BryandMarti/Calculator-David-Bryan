@@ -1,0 +1,18 @@
+body {
+  margin: 0 ;
+  text-align: center ;
+  background: url(/files/HEROSCREEN.CC-WALL-141023C.webp) ;
+  background-size: cover ;
+  background-repeat: repeat ;
+}
+
+.grid-Container {
+  width: 50%;
+  margin: auto;
+  display: grid ;
+  grid-template: repeat(8, 1fr) / repeat(5, 1fr);
+  border: solid 2px black ;
+  background: linear-gradient(45deg, #282525ac, #372d2d ) ;
+  padding: 10px ;
+}
+
