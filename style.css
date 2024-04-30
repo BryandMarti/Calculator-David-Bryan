@@ -1,5 +1,10 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-  margin: 0 ;
+  padding-bottom: 3vh;
+  padding-top: 3vh;  
   text-align: center ;
   background: url(/files/HEROSCREEN.CC-WALL-141023C.webp) ;
   background-size: cover ;
@@ -10,9 +15,31 @@ body {
   width: 50%;
   margin: auto;
   display: grid ;
-  grid-template: repeat(8, 1fr) / repeat(5, 1fr);
+  grid-template: repeat(8, 1fr) / repeat(4, 1fr);
   border: solid 2px black ;
   background: linear-gradient(45deg, #282525ac, #372d2d ) ;
   padding: 10px ;
 }
+
+#display {
+  text-align: right;
+}
+
+
+#display{
+  grid-column: 1/5
+}
+
+#gridbutton-2 {  
+  grid-row: 2/4
+}
+#gridbutton-24 {  
+  grid-row: 7/9;
+  grid-column: 4/5;
+}
+
+
+
+
+
 
