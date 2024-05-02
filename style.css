@@ -1,38 +1,50 @@
+
 * {
   box-sizing: border-box;
 }
 
 body {
   padding-top: 3vh;  
-  background: url(/files/HEROSCREEN.CC-WALL-141023C.webp) ;
+  background: url(/files/table101.webp) ;
   background-size: fill ;
 }
 
+#handofcalc {
+  display: none;
+}
+
 .calculator {
+  max-height: 800px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: auto;
   padding: 10px ;
-  height: 110vw;
+  perspective: 1000px;
 }
 
 .grid-Container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  padding: 10px;
   justify-items: center;
   align-items: center;
-  transform: scale(0.8);
+  border-radius: 20px;
+  box-shadow: -1px 15px 20px 15px black;
+  transform: rotate(20deg);
+  transform: rotateX(30deg) rotateY(-7deg) rotate(9deg) scale(0.7);
+  transform-style: preserve-3d;
 }
 
 .grid-Container button {
   border-radius: 20px;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: x-large;
-  width: 100px;
-  height: 100px;
+  font-size: xx-large;
+  text-shadow: 1px 1px hsla(0, 1%, 29%, 0.593);
+  width: 105px;
+  height: 105px;
   padding: 15px;
+  transform: rotateX(0deg);
+  transform-style: preserve-3d;
 }
 
 button:hover {
@@ -50,6 +62,7 @@ input::-webkit-inner-spin-button {
 }
 
 #display {
+  font-family: 'Calculator', sans-serif;
   background-color: transparent;
   text-align: right;
   font-size: 4.5rem;
@@ -63,25 +76,36 @@ input::-webkit-inner-spin-button {
 
 #topcalc {
   z-index: 0;
-  grid-column: 1/5;
+  grid-column: 1 / 5;
   grid-row: 1;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  transform-style: preserve-3d;
+}
+
+::placeholder {
+  opacity: 0.5;
 }
 
 #midcalc {
   grid-column: 1/5;
   grid-row: 2/3;
+  transform-style: preserve-3d;
 }
 
 #bodycalc {
   z-index: 0;
   grid-column: 1/5;
   grid-row: 3/10;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 #gridbutton-2 { 
   background-color: #50483a;
-  border: 2px solid rgb(255, 255, 255);
-  box-shadow: 0.2px 13px black;  grid-row: 3/5;
+  border: 2px solid rgb(255 255 255 / 51%);
+  box-shadow: 0.2px 13px black;
+  grid-row: 3 / 5;
   grid-column: 1;
   height: 230px;
   z-index: 1;
@@ -288,6 +312,8 @@ input::-webkit-inner-spin-button {
   grid-row: 9;
   z-index: 1;
 }
+
+
 
 
 
