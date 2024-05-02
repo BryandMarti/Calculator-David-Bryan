@@ -111,7 +111,7 @@ function pressSquared() {
 
 function press7() {
     if (display.value.includes(" ")) {
-        
+
     } else {
         display.value += "7";
     }
@@ -146,7 +146,7 @@ function pressSub() {
 }
 
 function press1() {
-    display.value +="1";
+    display.value += "1";
 }
 
 function press2() {
