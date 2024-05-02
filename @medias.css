@@ -237,6 +237,12 @@ display: none;
     height: 140px;
   }
 }
+
+@media  screen and (min-width: 1030px) {
+  #handofcalc {
+    display: none;
+  }
+}
  
 
  
