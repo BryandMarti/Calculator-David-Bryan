@@ -54,7 +54,8 @@ btnDec.addEventListener('click', pressDec);
 btnEquals.addEventListener('click', pressEquals);
 
 let isOn = true;
-let backgroundEquation = "";
+let equation = ['('];
+let expression = "(";
 
 function pressOn() {
     if (isOn) {
@@ -74,11 +75,12 @@ function pressSqrt() {
     if (Math.sqrt(display.value)) {
         display.value = Math.sqrt(display.value);
     } else {
-        display.value = "Err: invalid sqrt"
+        display.value = "Err: invalid sqrt";
     }
 }
 function pressMod() {
     display.value += " % ";
+    equation.push('%');
 }
 
 function pressMR() {
@@ -103,77 +105,261 @@ function pressMplus() {
 
 function pressDiv() {
     display.value += " ÷ ";
+    equation.push('/');
 }
 
 function pressSquared() {
     display.value = display.value + "²";
+    equation.push("²");
 }
 
 function press7() {
+<<<<<<< Updated upstream
     if (display.value.includes(" ")) {
 
     } else {
         display.value += "7";
+=======
+    switch (equation[--equation.length]) {
+        case '*':
+        case '/':
+        case '-':
+        case '+':
+        case '²':
+        case '%':
+        case '':
+            equation.push(7);
+            equation.push(')');
+            break;
+        default:
+            equation.push(7);
+>>>>>>> Stashed changes
     }
+    display.value += "7";
 }
 
 function press8() {
+    switch (equation[--equation.length]) {
+        case '*':
+        case '/':
+        case '-':
+        case '+':
+        case '²':
+        case '%':
+        case '':
+            equation.push(8);
+            equation.push(')');
+            break;
+        default:
+            equation.push(8);
+    }
     display.value += "8";
 }
 
 function press9() {
+    switch (equation[--equation.length]) {
+        case '*':
+        case '/':
+        case '-':
+        case '+':
+        case '²':
+        case '%':
+        case '':
+            equation.push(9);
+            equation.push(')');
+            break;
+        default:
+            equation.push(9);
+    }
     display.value += "9";
 }
 
 function pressMul() {
+    equation.push("*");
     display.value += " x ";
 }
 
 function press4() {
+    switch (equation[--equation.length]) {
+        case '*':
+        case '/':
+        case '-':
+        case '+':
+        case '²':
+        case '%':
+        case '':
+            equation.push(4);
+            equation.push(')');
+            break;
+        default:
+            equation.push(4);
+    }
     display.value += "4";
 }
 
 function press5() {
+    switch (equation[--equation.length]) {
+        case '*':
+        case '/':
+        case '-':
+        case '+':
+        case '²':
+        case '%':
+        case '':
+            equation.push(5);
+            equation.push(')');
+            break;
+        default:
+            equation.push(5);
+    }
     display.value += "5";
 }
 
 function press6() {
+    switch (equation[--equation.length]) {
+        case '*':
+        case '/':
+        case '-':
+        case '+':
+        case '²':
+        case '%':
+        case '':
+            equation.push(6);
+            equation.push(')');
+            break;
+        default:
+            equation.push(6);
+    }
     display.value += "6";
 }
 
 function pressSub() {
+    equation.push['-'];
     display.value += "-";
 }
 
 function press1() {
+<<<<<<< Updated upstream
+=======
+    switch (equation[--equation.length]) {
+        case '*':
+        case '/':
+        case '-':
+        case '+':
+        case '²':
+        case '%':
+        case '':
+            equation.push(1);
+            equation.push(')');
+            break;
+        default:
+            equation.push(1);
+    }
+>>>>>>> Stashed changes
     display.value += "1";
 }
 
 function press2() {
+    switch (equation[--equation.length]) {
+        case '*':
+        case '/':
+        case '-':
+        case '+':
+        case '²':
+        case '%':
+        case '':
+            equation.push(2);
+            equation.push(')');
+            break;
+        default:
+            equation.push(2);
+    }
     display.value += "2";
 }
 
 function press3() {
+    switch (equation[--equation.length]) {
+        case '*':
+        case '/':
+        case '-':
+        case '+':
+        case '²':
+        case '%':
+        case '':
+            equation.push(3);
+            equation.push(')');
+            break;
+        default:
+            equation.push(3);
+    }
     display.value += "3";
 }
 
 function pressAdd() {
+    equation.push('+');
     display.value += " + ";
 }
 
 function press0() {
+    switch (equation[--equation.length]) {
+        case '*':
+        case '/':
+        case '-':
+        case '+':
+        case '²':
+        case '%':
+        case '':
+            equation.push(0);
+            equation.push(')');
+            break;
+        default:
+            equation.push(0);
+    }
     display.value += "0";
 }
 
 function pressDec() {
+    equation.push['.'];
     display.value += ".";
 }
 
 function pressEquals() {
-    const expression = display.value;
-    backgroundEquation = "";
+    for (let i = 0; i < equation.length; i++) {
+        switch (equation[i]) {
+            case '*':
+
+                break;
+            case '/':
+
+                break;
+            case '-':
+
+                break;
+            case '+':
+
+                break;
+            case '²':
+
+                break;
+            case '%':
+
+                break;
+            case '':
+
+                break;
+            default:
+
+
+        }
+
+        // if (equation[i] !== '*' && equation[i] !== '+' && equation[i] !== '-' && equation[i] !== '/' && equation[i] !== '²' && equation[i] !== '%' && equation[i] !== '') {
+        //     expression += equation[i];
+        // } else {
+
+        // }
+    }
 }
 
 function evaluate(expr) {
-    return eval?.(`"use strict";(${obj})`);
+    display.value = eval?.(`"use strict";(${expr})`);
 }
