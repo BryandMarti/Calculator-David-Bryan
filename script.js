@@ -54,14 +54,17 @@ btnDec.addEventListener('click', pressDec);
 btnEquals.addEventListener('click', pressEquals);
 
 let isOn = true;
-let equation = ['('];
+const equation = ['('];
 let expression = "(";
+display.value = "";
 
 function pressOn() {
     if (isOn) {
         display.value = "";
+        equation.splice(0, 1);
+        expression = "(";
     } else {
-        display.style.backgroundColor = "white";
+        display.style.backgroundColor = "transparent";
         isOn = true;
     }
 }
@@ -73,7 +76,22 @@ function pressOff() {
 
 function pressSqrt() {
     if (Math.sqrt(display.value)) {
-        display.value = Math.sqrt(display.value);
+        switch (equation[--equation.length]) {
+            case '*':
+            case '/':
+            case '-':
+            case '+':
+            case '²':
+            case '%':
+            case '':
+                equation.push(3);
+                equation.push(')');
+                equation.push('(');
+                break;
+            default:
+                equation.push(3);
+        }
+        display.value += `${Math.sqrt(display.value)}`;
     } else {
         display.value = "Err: invalid sqrt";
     }
@@ -85,6 +103,8 @@ function pressMod() {
 
 function pressMR() {
     display.value = "" + display.value;
+    console.log(equation);
+    console.log(expression)
 }
 
 function pressMC() {
@@ -114,12 +134,6 @@ function pressSquared() {
 }
 
 function press7() {
-<<<<<<< Updated upstream
-    if (display.value.includes(" ")) {
-
-    } else {
-        display.value += "7";
-=======
     switch (equation[--equation.length]) {
         case '*':
         case '/':
@@ -127,13 +141,13 @@ function press7() {
         case '+':
         case '²':
         case '%':
-        case '':
+        case '√':
             equation.push(7);
             equation.push(')');
+            equation.push('(');
             break;
         default:
             equation.push(7);
->>>>>>> Stashed changes
     }
     display.value += "7";
 }
@@ -146,9 +160,10 @@ function press8() {
         case '+':
         case '²':
         case '%':
-        case '':
+        case '√':
             equation.push(8);
             equation.push(')');
+            equation.push('(');
             break;
         default:
             equation.push(8);
@@ -164,9 +179,10 @@ function press9() {
         case '+':
         case '²':
         case '%':
-        case '':
+        case '√':
             equation.push(9);
             equation.push(')');
+            equation.push('(');
             break;
         default:
             equation.push(9);
@@ -187,9 +203,10 @@ function press4() {
         case '+':
         case '²':
         case '%':
-        case '':
+        case '√':
             equation.push(4);
             equation.push(')');
+            equation.push('(');
             break;
         default:
             equation.push(4);
@@ -205,9 +222,10 @@ function press5() {
         case '+':
         case '²':
         case '%':
-        case '':
+        case '√':
             equation.push(5);
             equation.push(')');
+            equation.push('(');
             break;
         default:
             equation.push(5);
@@ -223,9 +241,10 @@ function press6() {
         case '+':
         case '²':
         case '%':
-        case '':
+        case '√':
             equation.push(6);
             equation.push(')');
+            equation.push('(');
             break;
         default:
             equation.push(6);
@@ -239,8 +258,6 @@ function pressSub() {
 }
 
 function press1() {
-<<<<<<< Updated upstream
-=======
     switch (equation[--equation.length]) {
         case '*':
         case '/':
@@ -248,14 +265,14 @@ function press1() {
         case '+':
         case '²':
         case '%':
-        case '':
+        case '√':
             equation.push(1);
             equation.push(')');
+            equation.push('(');
             break;
         default:
             equation.push(1);
     }
->>>>>>> Stashed changes
     display.value += "1";
 }
 
@@ -267,9 +284,10 @@ function press2() {
         case '+':
         case '²':
         case '%':
-        case '':
+        case '√':
             equation.push(2);
             equation.push(')');
+            equation.push('(');
             break;
         default:
             equation.push(2);
@@ -285,9 +303,10 @@ function press3() {
         case '+':
         case '²':
         case '%':
-        case '':
+        case '√':
             equation.push(3);
             equation.push(')');
+            equation.push('(');
             break;
         default:
             equation.push(3);
@@ -308,9 +327,10 @@ function press0() {
         case '+':
         case '²':
         case '%':
-        case '':
+        case '√':
             equation.push(0);
             equation.push(')');
+            equation.push('(');
             break;
         default:
             equation.push(0);
@@ -344,7 +364,7 @@ function pressEquals() {
             case '%':
 
                 break;
-            case '':
+            case '√':
 
                 break;
             default:
