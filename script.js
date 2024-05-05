@@ -26,6 +26,7 @@ const btn0 = document.querySelector("#gridbutton-25");
 const btnDec = document.querySelector("#gridbutton-26");
 const btnEquals = document.querySelector("#gridbutton-27");
 
+display.addEventListener('click', pressOn);
 btnOn.addEventListener('click', pressOn);
 btnOff.addEventListener('click', pressOff);
 btnSqrt.addEventListener('click', pressSqrt);
@@ -61,7 +62,7 @@ display.value = "";
 function pressOn() {
     if (isOn) {
         display.value = "";
-        equation.splice(0, 1);
+        equation.splice(0, equation.length);
         expression = "";
     } else {
         display.placeholder = "000000000000000";
@@ -183,20 +184,26 @@ function press9() {
 }
 
 function pressAdd() {
-    switch (equation[equation.length - 1]) {
-        case '*':
-        case '/':
-        case '-':
-        case '+':
-        case '²':
-        case '%':
-        case '√':
-            display.value = 'ERR: two operators';
-            break;
-        default:
-            equation.push('+');
-            expression += '+';
-            display.value += " + ";
+    if (equation[equation.length - 2] === '√') {
+        expression += ")+";
+        equation.push('+');
+        display.value += " + ";
+    } else {
+        switch (equation[equation.length - 1]) {
+            case '*':
+            case '/':
+            case '-':
+            case '+':
+            case '²':
+            case '%':
+            case '√':
+                display.value = 'ERR: two operators';
+                break;
+            default:
+                equation.push('+');
+                expression += '+';
+                display.value += " + ";
+        }
     }
 }
 
@@ -286,7 +293,7 @@ function pressSquared() {
         default: {
             const lastNumber = equation[equation.length - 1];
             equation[equation.length - 1] = lastNumber * lastNumber;
-            expression += '^2';
+            expression += '**2';
             display.value = '';
             for (let i = 0; i < equation.length; i++) {
                 display.value += equation[i];
@@ -302,8 +309,7 @@ function pressSqrt() {
     } else {
         equation.push('√');
         display.value += "√";
-        //rewrite expression with equation array
-        expression += `* ${equation[equation.length - 1]}`
+        expression += `Math.sqrt(`
     }
 }
 
@@ -330,7 +336,7 @@ function pressMR() {
     console.log(equation);
     console.log(expression);
 
-    // equation.splice(0, 0);
+    // equation.splice(0, equation.length);;
     // display.value = "";
     // expression = ''
 }
@@ -353,11 +359,27 @@ function pressMplus() {
 }
 
 function pressEquals() {
-    
-    display.value = evaluate(expression);
+    if (expression === "") {
+        //catch any malicious commands coming through display with user keyboard
+        try {
+            display.value = evaluate(display.value);
+            console.log('intended: ' + evaluate(display.value));
+        }
+        catch(err) {
+            display.value = "ERR: invalid data"
+        }
+    } else {
+        display.value = evaluate(expression);
+    }
 }
 
 function evaluate(expr) {
+    //replaces '{', '}', '(', ')', ',', and '/' with empty string to prevent malicious code
+    expr = expr.replaceAll(/[{}()]/gm, "");
+    expr = expr.replaceAll(/[,\/]/gm, "");
+    expr = expr.replaceAll(/Math.sqrt\d*\.?\d*/g, "Math.sqrt(");
+
     console.log(expr);
+    //uses indirect eval to limit the scope and abilities of eval, while still returning accurate information
     return eval?.(`"use strict";(${expr})`);
 }
