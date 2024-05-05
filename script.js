@@ -54,61 +54,290 @@ btnDec.addEventListener('click', pressDec);
 btnEquals.addEventListener('click', pressEquals);
 
 let isOn = true;
-const equation = ['('];
-let expression = "(";
+const equation = [''];
+let expression = "";
 display.value = "";
 
 function pressOn() {
     if (isOn) {
         display.value = "";
         equation.splice(0, 1);
-        expression = "(";
+        expression = "";
     } else {
-        display.style.backgroundColor = "transparent";
+        display.placeholder = "000000000000000";
         isOn = true;
     }
 }
 
 function pressOff() {
-    display.style.backgroundColor = "black";
+    display.placeholder = "";
     isOn = false;
 }
 
-function pressSqrt() {
-    if (Math.sqrt(display.value)) {
-        switch (equation[--equation.length]) {
-            case '*':
-            case '/':
-            case '-':
-            case '+':
-            case '²':
-            case '%':
-            case '':
-                equation.push(3);
-                equation.push(')');
-                equation.push('(');
-                break;
-            default:
-                equation.push(3);
-        }
-        display.value += `${Math.sqrt(display.value)}`;
-    } else {
-        display.value = "Err: invalid sqrt";
+function press0() {
+    if (isNaN(equation[equation.length - 1])) {
+        equation.push(0);
+    }  else {
+        equation[equation.length - 1] += '0';
+    }
+    
+    expression += 0;
+    display.value += 0;
+    // display.value = '';
+    // for (let i = 0; i < equation.length; i++) {
+    //     display.value += equation[i];
+    // }
+}
+
+function press1() {
+    if (isNaN(equation[equation.length - 1])) {
+        equation.push(1);
+    }  else {
+        equation[equation.length - 1] += '1';
+    }
+
+    expression += 1;
+    display.value += "1";
+}
+
+function press2() {
+    if (isNaN(equation[equation.length - 1])) {
+        equation.push(2);
+    }  else {
+        equation[equation.length - 1] += '2';
+    }
+    
+    expression += 2;
+    display.value += "2";
+}
+
+function press3() {
+    if (isNaN(equation[equation.length - 1])) {
+        equation.push(3);
+    }  else {
+        equation[equation.length - 1] += '3';
+    }
+
+    expression += 3;
+    display.value += "3";
+}
+
+function press4() {
+    if (isNaN(equation[equation.length - 1])) {
+        equation.push(4);
+    }  else {
+        equation[equation.length - 1] += '4';
+    }
+    expression += 4;
+    display.value += "4";
+}
+
+function press5() {
+    if (isNaN(equation[equation.length - 1])) {
+        equation.push(5);
+    }  else {
+        equation[equation.length - 1] += '5';
+    }
+    expression += 5;
+    display.value += "5";
+}
+
+function press6() {
+    if (isNaN(equation[equation.length - 1])) {
+        equation.push(6);
+    }  else {
+        equation[equation.length - 1] += '6';
+    }
+    expression += 6;
+    display.value += "6";
+}
+
+function press7() {
+    if (isNaN(equation[equation.length - 1])) {
+        equation.push(7);
+    }  else {
+        equation[equation.length - 1] += '7';
+    }
+    expression += 7;
+    display.value += "7";
+}
+
+function press8() {
+    if (isNaN(equation[equation.length - 1])) {
+        equation.push(8);
+    }  else {
+        equation[equation.length - 1] += '8';
+    }
+    expression += 8;
+    display.value += "8";
+}
+
+function press9() {
+    if (isNaN(equation[equation.length - 1])) {
+        equation.push(9);
+    }  else {
+        equation[equation.length - 1] += '9';
+    }
+    expression += 9;
+    display.value += "9";
+}
+
+function pressAdd() {
+    switch (equation[equation.length - 1]) {
+        case '*':
+        case '/':
+        case '-':
+        case '+':
+        case '²':
+        case '%':
+        case '√':
+            display.value = 'ERR: two operators';
+            break;
+        default:
+            equation.push('+');
+            expression += '+';
+            display.value += " + ";
     }
 }
+
+function pressSub() {
+    switch (equation[equation.length - 1]) {
+        case '*':
+        case '/':
+        case '-':
+        case '+':
+        case '²':
+        case '%':
+        case '√':
+            display.value = 'ERR: two operators';
+            break;
+        default:
+            equation.push('-');
+            expression += '-';
+            display.value += "-";
+    }
+}
+
+function pressMul() {
+    switch (equation[equation.length - 1]) {
+        case '*':
+        case '/':
+        case '-':
+        case '+':
+        case '²':
+        case '%':
+        case '√':
+            display.value = 'ERR: two operators';
+            break;
+        default:
+            equation.push("*");
+            expression += '*';
+            display.value += " x ";
+    }
+}
+
+function pressDiv() {
+    switch (equation[equation.length - 1]) {
+        case '*':
+        case '/':
+        case '-':
+        case '+':
+        case '²':
+        case '%':
+        case '√':
+            display.value = 'ERR: two operators';
+            break;
+        default:
+            display.value += " / ";
+            expression += "/"
+            equation.push('/');
+    }
+}
+
 function pressMod() {
-    display.value += " % ";
-    equation.push('%');
+    switch (equation[equation.length - 1]) {
+        case '*':
+        case '/':
+        case '-':
+        case '+':
+        case '²':
+        case '%':
+        case '√':
+            display.value = 'ERR: two operators';
+            break;
+        default:
+            equation.push('%');
+            display.value += "%"
+            expression += "%"
+    }
+}
+
+function pressSquared() {
+    switch (equation[equation.length - 1]) {
+        case '*':
+        case '/':
+        case '-':
+        case '+':
+        case '²':
+        case '%':
+        case '√':
+            display.value = 'ERR: two operators';
+            break;
+        default: {
+            const lastNumber = equation[equation.length - 1];
+            equation[equation.length - 1] = lastNumber * lastNumber;
+            expression += '^2';
+            display.value = '';
+            for (let i = 0; i < equation.length; i++) {
+                display.value += equation[i];
+            }
+        }
+    }
+}
+
+function pressSqrt() {
+    if (equation[equation.length - 1] === '√') {
+        display.value = 'ERR: two operators';
+            
+    } else {
+        equation.push('√');
+        display.value += "√";
+        //rewrite expression with equation array
+        expression += `* ${equation[equation.length - 1]}`
+    }
+}
+
+function pressDec() {
+    switch (equation[equation.length - 1]) {
+        case '*':
+        case '/':
+        case '-':
+        case '+':
+        case '²':
+        case '%':
+        case '√':
+            display.value = 'ERR: two operators';
+            break;
+        default:
+            equation[equation.length - 1] += '.';
+            display.value += ".";
+            expression += '.'
+    }
 }
 
 function pressMR() {
     display.value = "" + display.value;
     console.log(equation);
-    console.log(expression)
+    console.log(expression);
+
+    // equation.splice(0, 0);
+    // display.value = "";
+    // expression = ''
 }
 
 function pressMC() {
-    display.value = "" + display.value;
+    display.value = "MEM CLEARED";
+    
 }
 
 function pressMRC() {
@@ -123,263 +352,12 @@ function pressMplus() {
     display.value = "" + display.value;
 }
 
-function pressDiv() {
-    display.value += " ÷ ";
-    equation.push('/');
-}
-
-function pressSquared() {
-    display.value = display.value + "²";
-    equation.push("²");
-}
-
-function press7() {
-    switch (equation[--equation.length]) {
-        case '*':
-        case '/':
-        case '-':
-        case '+':
-        case '²':
-        case '%':
-        case '√':
-            equation.push(7);
-            equation.push(')');
-            equation.push('(');
-            break;
-        default:
-            equation.push(7);
-    }
-    display.value += "7";
-}
-
-function press8() {
-    switch (equation[--equation.length]) {
-        case '*':
-        case '/':
-        case '-':
-        case '+':
-        case '²':
-        case '%':
-        case '√':
-            equation.push(8);
-            equation.push(')');
-            equation.push('(');
-            break;
-        default:
-            equation.push(8);
-    }
-    display.value += "8";
-}
-
-function press9() {
-    switch (equation[--equation.length]) {
-        case '*':
-        case '/':
-        case '-':
-        case '+':
-        case '²':
-        case '%':
-        case '√':
-            equation.push(9);
-            equation.push(')');
-            equation.push('(');
-            break;
-        default:
-            equation.push(9);
-    }
-    display.value += "9";
-}
-
-function pressMul() {
-    equation.push("*");
-    display.value += " x ";
-}
-
-function press4() {
-    switch (equation[--equation.length]) {
-        case '*':
-        case '/':
-        case '-':
-        case '+':
-        case '²':
-        case '%':
-        case '√':
-            equation.push(4);
-            equation.push(')');
-            equation.push('(');
-            break;
-        default:
-            equation.push(4);
-    }
-    display.value += "4";
-}
-
-function press5() {
-    switch (equation[--equation.length]) {
-        case '*':
-        case '/':
-        case '-':
-        case '+':
-        case '²':
-        case '%':
-        case '√':
-            equation.push(5);
-            equation.push(')');
-            equation.push('(');
-            break;
-        default:
-            equation.push(5);
-    }
-    display.value += "5";
-}
-
-function press6() {
-    switch (equation[--equation.length]) {
-        case '*':
-        case '/':
-        case '-':
-        case '+':
-        case '²':
-        case '%':
-        case '√':
-            equation.push(6);
-            equation.push(')');
-            equation.push('(');
-            break;
-        default:
-            equation.push(6);
-    }
-    display.value += "6";
-}
-
-function pressSub() {
-    equation.push['-'];
-    display.value += "-";
-}
-
-function press1() {
-    switch (equation[--equation.length]) {
-        case '*':
-        case '/':
-        case '-':
-        case '+':
-        case '²':
-        case '%':
-        case '√':
-            equation.push(1);
-            equation.push(')');
-            equation.push('(');
-            break;
-        default:
-            equation.push(1);
-    }
-    display.value += "1";
-}
-
-function press2() {
-    switch (equation[--equation.length]) {
-        case '*':
-        case '/':
-        case '-':
-        case '+':
-        case '²':
-        case '%':
-        case '√':
-            equation.push(2);
-            equation.push(')');
-            equation.push('(');
-            break;
-        default:
-            equation.push(2);
-    }
-    display.value += "2";
-}
-
-function press3() {
-    switch (equation[--equation.length]) {
-        case '*':
-        case '/':
-        case '-':
-        case '+':
-        case '²':
-        case '%':
-        case '√':
-            equation.push(3);
-            equation.push(')');
-            equation.push('(');
-            break;
-        default:
-            equation.push(3);
-    }
-    display.value += "3";
-}
-
-function pressAdd() {
-    equation.push('+');
-    display.value += " + ";
-}
-
-function press0() {
-    switch (equation[--equation.length]) {
-        case '*':
-        case '/':
-        case '-':
-        case '+':
-        case '²':
-        case '%':
-        case '√':
-            equation.push(0);
-            equation.push(')');
-            equation.push('(');
-            break;
-        default:
-            equation.push(0);
-    }
-    display.value += "0";
-}
-
-function pressDec() {
-    equation.push['.'];
-    display.value += ".";
-}
-
 function pressEquals() {
-    for (let i = 0; i < equation.length; i++) {
-        switch (equation[i]) {
-            case '*':
-
-                break;
-            case '/':
-
-                break;
-            case '-':
-
-                break;
-            case '+':
-
-                break;
-            case '²':
-
-                break;
-            case '%':
-
-                break;
-            case '√':
-
-                break;
-            default:
-
-
-        }
-
-        // if (equation[i] !== '*' && equation[i] !== '+' && equation[i] !== '-' && equation[i] !== '/' && equation[i] !== '²' && equation[i] !== '%' && equation[i] !== '') {
-        //     expression += equation[i];
-        // } else {
-
-        // }
-    }
+    
+    display.value = evaluate(expression);
 }
 
 function evaluate(expr) {
-    display.value = eval?.(`"use strict";(${expr})`);
+    console.log(expr);
+    return eval?.(`"use strict";(${expr})`);
 }
