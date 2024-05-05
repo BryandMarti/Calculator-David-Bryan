@@ -55,6 +55,7 @@ btnDec.addEventListener('click', pressDec);
 btnEquals.addEventListener('click', pressEquals);
 
 let isOn = true;
+const results = [];
 const equation = [''];
 let expression = "";
 display.value = "";
@@ -73,6 +74,31 @@ function pressOn() {
 function pressOff() {
     display.placeholder = "";
     isOn = false;
+}
+
+function evaluateInMiddle(){
+    
+    if (equation[equation.length - 2] === '√') {
+        display.value = eval(expression + ")");
+    } else {
+        display.value = eval(expression);
+    }
+}
+
+function goBackToExpression() {
+    if (equation.length > 3) {
+        //Change neat font to math notation
+        
+        let expr = "";
+        for (const element of equation) {
+            expr += element;
+        }
+        expr = expr.replaceAll(/[*]/g, "x");
+        expr = expr.replaceAll(/[*]{2}2/g, "²");
+        expr = expr.replaceAll(/Math.sqrt(\d*)(\.?)(\d*)/g, "√$1$2$3");
+
+        display.value = expr;
+    }
 }
 
 function press0() {
@@ -99,6 +125,8 @@ function press1() {
 
     expression += 1;
     display.value += "1";
+
+    evaluateInMiddle();
 }
 
 function press2() {
@@ -110,6 +138,8 @@ function press2() {
     
     expression += 2;
     display.value += "2";
+
+    evaluateInMiddle()
 }
 
 function press3() {
@@ -121,6 +151,8 @@ function press3() {
 
     expression += 3;
     display.value += "3";
+
+    evaluateInMiddle();
 }
 
 function press4() {
@@ -131,6 +163,8 @@ function press4() {
     }
     expression += 4;
     display.value += "4";
+
+    evaluateInMiddle()
 }
 
 function press5() {
@@ -141,6 +175,8 @@ function press5() {
     }
     expression += 5;
     display.value += "5";
+
+    evaluateInMiddle();
 }
 
 function press6() {
@@ -151,6 +187,8 @@ function press6() {
     }
     expression += 6;
     display.value += "6";
+
+    evaluateInMiddle();
 }
 
 function press7() {
@@ -161,6 +199,8 @@ function press7() {
     }
     expression += 7;
     display.value += "7";
+
+    evaluateInMiddle();
 }
 
 function press8() {
@@ -171,6 +211,8 @@ function press8() {
     }
     expression += 8;
     display.value += "8";
+
+    evaluateInMiddle();
 }
 
 function press9() {
@@ -181,13 +223,16 @@ function press9() {
     }
     expression += 9;
     display.value += "9";
+
+    evaluateInMiddle();
 }
 
 function pressAdd() {
     if (equation[equation.length - 2] === '√') {
         expression += ")+";
         equation.push('+');
-        display.value += " + ";
+        display.value += "+";
+        goBackToExpression();
     } else {
         switch (equation[equation.length - 1]) {
             case '*':
@@ -202,7 +247,8 @@ function pressAdd() {
             default:
                 equation.push('+');
                 expression += '+';
-                display.value += " + ";
+                display.value += "+";
+                goBackToExpression();
         }
     }
 }
@@ -222,6 +268,7 @@ function pressSub() {
             equation.push('-');
             expression += '-';
             display.value += "-";
+            goBackToExpression()
     }
 }
 
@@ -239,7 +286,8 @@ function pressMul() {
         default:
             equation.push("*");
             expression += '*';
-            display.value += " x ";
+            display.value += "x";
+            goBackToExpression()
     }
 }
 
@@ -255,9 +303,10 @@ function pressDiv() {
             display.value = 'ERR: two operators';
             break;
         default:
-            display.value += " / ";
+            display.value += "/";
             expression += "/"
             equation.push('/');
+            goBackToExpression();
     }
 }
 
@@ -274,8 +323,9 @@ function pressMod() {
             break;
         default:
             equation.push('%');
-            display.value += "%"
-            expression += "%"
+            display.value += "%";
+            expression += "%";
+            goBackToExpression();
     }
 }
 
@@ -295,9 +345,10 @@ function pressSquared() {
             equation[equation.length - 1] = lastNumber * lastNumber;
             expression += '**2';
             display.value = '';
-            for (let i = 0; i < equation.length; i++) {
-                display.value += equation[i];
+            for (const element of equation) {
+                display.value += element;
             }
+            
         }
     }
 }
@@ -310,6 +361,7 @@ function pressSqrt() {
         equation.push('√');
         display.value += "√";
         expression += `Math.sqrt(`
+        goBackToExpression()
     }
 }
 
@@ -328,6 +380,7 @@ function pressDec() {
             equation[equation.length - 1] += '.';
             display.value += ".";
             expression += '.'
+            goBackToExpression();
     }
 }
 
@@ -343,7 +396,7 @@ function pressMR() {
 
 function pressMC() {
     display.value = "MEM CLEARED";
-    
+    pressOn();
 }
 
 function pressMRC() {
@@ -377,9 +430,14 @@ function evaluate(expr) {
     //replaces '{', '}', '(', ')', ',', and '/' with empty string to prevent malicious code
     expr = expr.replaceAll(/[{}()]/gm, "");
     expr = expr.replaceAll(/[,\/]/gm, "");
-    expr = expr.replaceAll(/Math.sqrt\d*\.?\d*/g, "Math.sqrt(");
+    expr = expr.replaceAll(/Math.sqrt(\d*)(\.?)(\d*)/g, "Math.sqrt(" + '$1$2$3' + ")");
 
     console.log(expr);
     //uses indirect eval to limit the scope and abilities of eval, while still returning accurate information
-    return eval?.(`"use strict";(${expr})`);
+    let result = eval?.(`"use strict";(${expr})`);
+    // round to 4 decimal places if number is floating point value
+    if (result % 1 !== 0) {
+        return result.toFixed(4);
+    }
+    return result;
 }
