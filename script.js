@@ -1,3 +1,5 @@
+//Since id's were used in html, adding every element individually was necessary
+//grab every element for the calculator's button
 const display = document.querySelector("#display");
 const btnOn = document.querySelector("#gridbutton-2");
 const btnOff = document.querySelector("#gridbutton-3");
@@ -25,7 +27,9 @@ const btnAdd = document.querySelector("#gridbutton-24");
 const btn0 = document.querySelector("#gridbutton-25");
 const btnDec = document.querySelector("#gridbutton-26");
 const btnEquals = document.querySelector("#gridbutton-27");
+const btnMem = document.querySelector("#gridbutton-Mem");
 
+//add an event listener for each button
 display.addEventListener('click', pressOn);
 btnOn.addEventListener('click', pressOn);
 btnOff.addEventListener('click', pressOff);
@@ -53,42 +57,61 @@ btnAdd.addEventListener('click', pressAdd);
 btn0.addEventListener('click', press0);
 btnDec.addEventListener('click', pressDec);
 btnEquals.addEventListener('click', pressEquals);
+btnMem.addEventListener('click', pressMem);
 
+//store display state
 let isOn = true;
+//store results for memory features
 const results = [];
-const equation = [''];
+//Store Memory value 
+let M = 0;
+//Keeps track how many times mem button was clicked
+let memClicks = 1;
+//store split up equation in array 
+const equation = [];
+//store entire expression
 let expression = "";
+//reset display
 display.value = "";
 
+//Turn display on or clear if already on
 function pressOn() {
     if (isOn) {
+        //reset stored values
         display.value = "";
         equation.splice(0, equation.length);
         expression = "";
+        memClicks = 1;
     } else {
+        //turn on calculator
         display.placeholder = "000000000000000";
         isOn = true;
     }
 }
 
+//turn off calculator
 function pressOff() {
     display.placeholder = "";
     isOn = false;
+    memClicks = 1;
 }
 
+//Evaluate expression
 function evaluateInMiddle(){
-    
+    memClicks = 1;
     if (equation[equation.length - 2] === '√') {
-        display.value = eval(expression + ")");
+        expression += ")"
+        display.value = evaluate(expression);
     } else {
-        display.value = eval(expression);
+        display.value = evaluate(expression);
     }
 }
 
+//Show full expression
 function goBackToExpression() {
+    memClicks = 1;
     if (equation.length > 3) {
         //Change neat font to math notation
-        
         let expr = "";
         for (const element of equation) {
             expr += element;
@@ -98,9 +121,12 @@ function goBackToExpression() {
         expr = expr.replaceAll(/Math.sqrt(\d*)(\.?)(\d*)/g, "√$1$2$3");
 
         display.value = expr;
+    } else if (isNaN(equation[0]) && equation[0] !== '√') {
+        display.value = 'ERR: invalid';
     }
 }
 
+//0 button
 function press0() {
     if (isNaN(equation[equation.length - 1])) {
         equation.push(0);
@@ -116,6 +142,7 @@ function press0() {
     // }
 }
 
+//Add number to equation, expression, and display when 1 is pressed button
 function press1() {
     if (isNaN(equation[equation.length - 1])) {
         equation.push(1);
@@ -129,6 +156,7 @@ function press1() {
     evaluateInMiddle();
 }
 
+//Add number to equation, expression, and display when 2 button is pressed
 function press2() {
     if (isNaN(equation[equation.length - 1])) {
         equation.push(2);
@@ -142,6 +170,7 @@ function press2() {
     evaluateInMiddle()
 }
 
+//Add number to equation, expression, and display when 3 button is pressed
 function press3() {
     if (isNaN(equation[equation.length - 1])) {
         equation.push(3);
@@ -155,6 +184,7 @@ function press3() {
     evaluateInMiddle();
 }
 
+//Add number to equation, expression, and display when 4 button is pressed
 function press4() {
     if (isNaN(equation[equation.length - 1])) {
         equation.push(4);
@@ -167,6 +197,7 @@ function press4() {
     evaluateInMiddle()
 }
 
+//Add number to equation, expression, and display when 5 button is pressed
 function press5() {
     if (isNaN(equation[equation.length - 1])) {
         equation.push(5);
@@ -179,6 +210,7 @@ function press5() {
     evaluateInMiddle();
 }
 
+//Add number to equation, expression, and display when 6 button is pressed
 function press6() {
     if (isNaN(equation[equation.length - 1])) {
         equation.push(6);
@@ -191,6 +223,7 @@ function press6() {
     evaluateInMiddle();
 }
 
+//Add number to equation, expression, and display when 7 button is pressed
 function press7() {
     if (isNaN(equation[equation.length - 1])) {
         equation.push(7);
@@ -203,6 +236,7 @@ function press7() {
     evaluateInMiddle();
 }
 
+//Add number to equation, expression, and display when 8 button is pressed
 function press8() {
     if (isNaN(equation[equation.length - 1])) {
         equation.push(8);
@@ -215,6 +249,7 @@ function press8() {
     evaluateInMiddle();
 }
 
+//Add number to equation, expression, and display when 9 button is pressed
 function press9() {
     if (isNaN(equation[equation.length - 1])) {
         equation.push(9);
@@ -227,6 +262,7 @@ function press9() {
     evaluateInMiddle();
 }
 
+//Add addition operator
 function pressAdd() {
     if (equation[equation.length - 2] === '√') {
         expression += ")+";
@@ -242,7 +278,10 @@ function pressAdd() {
             case '²':
             case '%':
             case '√':
-                display.value = 'ERR: two operators';
+                //If last element is an operator, replace it
+            display.value = display.value.replace(/[x\+\/\-%]$/, '+');
+            equation[equation.length - 1] = '+';
+            expression = expression.replace(/[x\+\/\-%]$/, '+');
                 break;
             default:
                 equation.push('+');
@@ -253,6 +292,7 @@ function pressAdd() {
     }
 }
 
+//Add subtraction operator
 function pressSub() {
     switch (equation[equation.length - 1]) {
         case '*':
@@ -262,7 +302,10 @@ function pressSub() {
         case '²':
         case '%':
         case '√':
-            display.value = 'ERR: two operators';
+            //If last element is an operator, replace it
+            display.value = display.value.replace(/[x\+\/\-%]$/, '-');
+            equation[equation.length - 1] = '-';
+            expression = expression.replace(/[x\+\/\-%]$/, '-');
             break;
         default:
             equation.push('-');
@@ -272,6 +315,7 @@ function pressSub() {
     }
 }
 
+//Add multiplication operator
 function pressMul() {
     switch (equation[equation.length - 1]) {
         case '*':
@@ -281,7 +325,10 @@ function pressMul() {
         case '²':
         case '%':
         case '√':
-            display.value = 'ERR: two operators';
+            //If last element is an operator, replace it
+            display.value = display.value.replace(/[x\+\/\-%]$/, 'x');
+            equation[equation.length - 1] = '*';
+            expression = expression.replace(/[x\+\/\-%]$/, '*');
             break;
         default:
             equation.push("*");
@@ -291,6 +338,7 @@ function pressMul() {
     }
 }
 
+//Add division operator
 function pressDiv() {
     switch (equation[equation.length - 1]) {
         case '*':
@@ -300,7 +348,10 @@ function pressDiv() {
         case '²':
         case '%':
         case '√':
-            display.value = 'ERR: two operators';
+            //If last element is an operator, replace it
+            display.value = display.value.replace(/[x\+\/\-%]$/, '/');
+            equation[equation.length - 1] = '/';
+            expression = expression.replace(/[x\+\/\-%]$/, '/');
             break;
         default:
             display.value += "/";
@@ -310,6 +361,7 @@ function pressDiv() {
     }
 }
 
+//Add Modulo operator
 function pressMod() {
     switch (equation[equation.length - 1]) {
         case '*':
@@ -319,7 +371,10 @@ function pressMod() {
         case '²':
         case '%':
         case '√':
-            display.value = 'ERR: two operators';
+            //If last element is an operator, replace it
+            display.value = display.value.replace(/[x\+\/\-%]$/, '%');
+            equation[equation.length - 1] = '%';
+            expression = expression.replace(/[x\+\/\-%]$/, '%');
             break;
         default:
             equation.push('%');
@@ -329,6 +384,7 @@ function pressMod() {
     }
 }
 
+//Add power of 2 operator
 function pressSquared() {
     switch (equation[equation.length - 1]) {
         case '*':
@@ -341,8 +397,8 @@ function pressSquared() {
             display.value = 'ERR: two operators';
             break;
         default: {
-            const lastNumber = equation[equation.length - 1];
-            equation[equation.length - 1] = lastNumber * lastNumber;
+            const lastElement = equation[equation.length - 1];
+            equation[equation.length - 1] = lastElement * lastElement;
             expression += '**2';
             display.value = '';
             for (const element of equation) {
@@ -353,18 +409,26 @@ function pressSquared() {
     }
 }
 
+//Add square root operator
 function pressSqrt() {
-    if (equation[equation.length - 1] === '√') {
+    const lastElement = equation[equation.length - 1];
+    if (lastElement === '√') {
         display.value = 'ERR: two operators';
-            
+    } else if (!isNaN(lastElement)) {
+        equation.push('*');
+        equation.push('√');
+        display.value += "x√";
+        expression += `*Math.sqrt(`
+        goBackToExpression()
     } else {
         equation.push('√');
         display.value += "√";
         expression += `Math.sqrt(`
-        goBackToExpression()
+        goBackToExpression();
     }
 }
 
+//Add decimal symbol
 function pressDec() {
     switch (equation[equation.length - 1]) {
         case '*':
@@ -374,7 +438,7 @@ function pressDec() {
         case '²':
         case '%':
         case '√':
-            display.value = 'ERR: two operators';
+            display.value = 'ERR: invalid data';
             break;
         default:
             equation[equation.length - 1] += '.';
@@ -384,31 +448,64 @@ function pressDec() {
     }
 }
 
+function pressMem() {
+    const result = results[results.length - memClicks];
+    if (!isNaN(result)){
+        display.value = result;
+        memClicks++;
+    } else {
+        display.value = 0;
+        equation.splice(0, equation.length);
+        expression = '';
+    }
+
+}
+
+//
 function pressMR() {
-    display.value = "" + display.value;
+    // memClicks = 1;
+    // equation.splice(0, equation.length); 
+    // expression = "";
+
+    // display.value = "";
     console.log(equation);
     console.log(expression);
-
-    // equation.splice(0, equation.length);;
-    // display.value = "";
-    // expression = ''
+    console.log(display.value);
 }
 
+//Clears memory
 function pressMC() {
-    display.value = "MEM CLEARED";
     pressOn();
+    M = 0;
+    results.splice(0, results.length);
+    display.value = "MEM CLEARED";
 }
 
+//Displays M value
 function pressMRC() {
-    display.value = "" + display.value;
+    memClicks = 1;
+    equation.splice(0, equation.length); 
+    expression = "";
+    display.value = M;
 }
 
+//Adds current expression to 
 function pressMminus() {
-    display.value = "" + display.value;
+    memClicks = 1;
+    equation.splice(0, equation.length); 
+    expression = "";
+    const result = evaluate(display.value);
+    if (!isNaN(result))
+    M -= result;
 }
 
 function pressMplus() {
-    display.value = "" + display.value;
+    memClicks = 1;
+    equation.splice(0, equation.length); 
+    expression = "";
+    const result = evaluate(display.value);
+    if (!isNaN(result))
+    M += result;
 }
 
 function pressEquals() {
@@ -422,7 +519,9 @@ function pressEquals() {
             display.value = "ERR: invalid data"
         }
     } else {
-        display.value = evaluate(expression);
+        const result = evaluate(expression)
+        display.value = result;
+        results.push(result);
     }
 }
 
@@ -432,10 +531,9 @@ function evaluate(expr) {
     expr = expr.replaceAll(/[,\/]/gm, "");
     expr = expr.replaceAll(/Math.sqrt(\d*)(\.?)(\d*)/g, "Math.sqrt(" + '$1$2$3' + ")");
 
-    console.log(expr);
     //uses indirect eval to limit the scope and abilities of eval, while still returning accurate information
     let result = eval?.(`"use strict";(${expr})`);
-    // round to 4 decimal places if number is floating point value
+    // round to 4 decimal places if number is a double or float
     if (result % 1 !== 0) {
         return result.toFixed(4);
     }
