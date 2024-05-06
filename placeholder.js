@@ -6,4 +6,3 @@ inputField.addEventListener('input', () => {
   const remainingText = placeholderText.substring(typedText.length);
   inputField.setAttribute('placeholder', remainingText);
 });
-
