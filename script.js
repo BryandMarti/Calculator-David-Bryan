@@ -5,7 +5,6 @@ const btnOn = document.querySelector("#gridbutton-2");
 const btnOff = document.querySelector("#gridbutton-3");
 const btnSqrt = document.querySelector("#gridbutton-4");
 const btnMod = document.querySelector("#gridbutton-5");
-const btnMR = document.querySelector("#gridbutton-6");
 const btnMC = document.querySelector("#gridbutton-7");
 const btnMRC = document.querySelector("#gridbutton-8");
 const btnMminus = document.querySelector("#gridbutton-9");
@@ -35,7 +34,6 @@ btnOn.addEventListener('click', pressOn);
 btnOff.addEventListener('click', pressOff);
 btnSqrt.addEventListener('click', pressSqrt);
 btnMod.addEventListener('click', pressMod);
-btnMR.addEventListener('click', pressMR);
 btnMC.addEventListener('click', pressMC);
 btnMRC.addEventListener('click', pressMRC);
 btnMminus.addEventListener('click', pressMminus);
@@ -84,6 +82,7 @@ function pressOn() {
         memClicks = 1;
     } else {
         //turn on calculator
+        display.disabled = false;
         display.placeholder = "000000000000000";
         isOn = true;
     }
@@ -91,6 +90,7 @@ function pressOn() {
 
 //turn off calculator
 function pressOff() {
+    display.disabled = true;
     display.placeholder = "";
     isOn = false;
     memClicks = 1;
@@ -111,11 +111,12 @@ function evaluateInMiddle(){
 function goBackToExpression() {
     memClicks = 1;
     if (equation.length > 3) {
-        //Change neat font to math notation
+        //Get expression from equation array
         let expr = "";
         for (const element of equation) {
             expr += element;
         }
+        //Change text to math notation
         expr = expr.replaceAll(/[*]/g, "x");
         expr = expr.replaceAll(/[*]{2}2/g, "²");
         expr = expr.replaceAll(/Math.sqrt(\d*)(\.?)(\d*)/g, "√$1$2$3");
@@ -128,55 +129,55 @@ function goBackToExpression() {
 
 //0 button
 function press0() {
+    //Adds digit to a new index if last index was an operator, otherwise adds the digit to the last number
     if (isNaN(equation[equation.length - 1])) {
         equation.push(0);
     }  else {
         equation[equation.length - 1] += '0';
     }
-    
+    //Updates expression and display values
     expression += 0;
     display.value += 0;
-    // display.value = '';
-    // for (let i = 0; i < equation.length; i++) {
-    //     display.value += equation[i];
-    // }
+    evaluateInMiddle();
 }
 
 //Add number to equation, expression, and display when 1 is pressed button
 function press1() {
+    //Adds digit to a new index if last index was an operator, otherwise adds the digit to the last number
     if (isNaN(equation[equation.length - 1])) {
         equation.push(1);
     }  else {
         equation[equation.length - 1] += '1';
     }
-
+    //Updates expression and display values
     expression += 1;
     display.value += "1";
-
     evaluateInMiddle();
 }
 
 //Add number to equation, expression, and display when 2 button is pressed
 function press2() {
+    //Adds digit to a new index if last index was an operator, otherwise adds the digit to the last number
     if (isNaN(equation[equation.length - 1])) {
         equation.push(2);
     }  else {
         equation[equation.length - 1] += '2';
     }
-    
+    //Updates expression and display values
     expression += 2;
     display.value += "2";
-
     evaluateInMiddle()
 }
 
 //Add number to equation, expression, and display when 3 button is pressed
 function press3() {
+    //Adds digit to a new index if last index was an operator, otherwise adds the digit to the last number
     if (isNaN(equation[equation.length - 1])) {
         equation.push(3);
     }  else {
         equation[equation.length - 1] += '3';
     }
+    //Updates expression and display values
 
     expression += 3;
     display.value += "3";
@@ -186,11 +187,13 @@ function press3() {
 
 //Add number to equation, expression, and display when 4 button is pressed
 function press4() {
+    //Adds digit to a new index if last index was an operator, otherwise adds the digit to the last number
     if (isNaN(equation[equation.length - 1])) {
         equation.push(4);
     }  else {
         equation[equation.length - 1] += '4';
     }
+    //Updates expression and display values
     expression += 4;
     display.value += "4";
 
@@ -199,11 +202,13 @@ function press4() {
 
 //Add number to equation, expression, and display when 5 button is pressed
 function press5() {
+    //Adds digit to a new index if last index was an operator, otherwise adds the digit to the last number
     if (isNaN(equation[equation.length - 1])) {
         equation.push(5);
     }  else {
         equation[equation.length - 1] += '5';
     }
+    //Updates expression and display values
     expression += 5;
     display.value += "5";
 
@@ -212,11 +217,13 @@ function press5() {
 
 //Add number to equation, expression, and display when 6 button is pressed
 function press6() {
+    //Adds digit to a new index if last index was an operator, otherwise adds the digit to the last number
     if (isNaN(equation[equation.length - 1])) {
         equation.push(6);
     }  else {
         equation[equation.length - 1] += '6';
     }
+    //Updates expression and display values
     expression += 6;
     display.value += "6";
 
@@ -225,11 +232,13 @@ function press6() {
 
 //Add number to equation, expression, and display when 7 button is pressed
 function press7() {
+    //Adds digit to a new index if last index was an operator, otherwise adds the digit to the last number
     if (isNaN(equation[equation.length - 1])) {
         equation.push(7);
     }  else {
         equation[equation.length - 1] += '7';
     }
+    //Updates expression and display values
     expression += 7;
     display.value += "7";
 
@@ -238,11 +247,13 @@ function press7() {
 
 //Add number to equation, expression, and display when 8 button is pressed
 function press8() {
+    //Adds digit to a new index if last index was an operator, otherwise adds the digit to the last number
     if (isNaN(equation[equation.length - 1])) {
         equation.push(8);
     }  else {
         equation[equation.length - 1] += '8';
     }
+    //Updates expression and display values
     expression += 8;
     display.value += "8";
 
@@ -251,11 +262,13 @@ function press8() {
 
 //Add number to equation, expression, and display when 9 button is pressed
 function press9() {
+    //Adds digit to a new index if last index was an operator, otherwise adds the digit to the last number
     if (isNaN(equation[equation.length - 1])) {
         equation.push(9);
     }  else {
         equation[equation.length - 1] += '9';
     }
+    //Updates expression and display values
     expression += 9;
     display.value += "9";
 
@@ -264,6 +277,7 @@ function press9() {
 
 //Add addition operator
 function pressAdd() {
+    //if last element is a square root add a paranthesis before the number, other wise only add number
     if (equation[equation.length - 2] === '√') {
         expression += ")+";
         equation.push('+');
@@ -278,7 +292,7 @@ function pressAdd() {
             case '²':
             case '%':
             case '√':
-                //If last element is an operator, replace it
+            //If last element is an operator, replace it
             display.value = display.value.replace(/[x\+\/\-%]$/, '+');
             equation[equation.length - 1] = '+';
             expression = expression.replace(/[x\+\/\-%]$/, '+');
@@ -448,7 +462,9 @@ function pressDec() {
     }
 }
 
+//Memory button for user control
 function pressMem() {
+    //Grab last calculations based on amount of clicks
     const result = results[results.length - memClicks];
     if (!isNaN(result)){
         display.value = result;
@@ -458,22 +474,9 @@ function pressMem() {
         equation.splice(0, equation.length);
         expression = '';
     }
-
 }
 
-//
-function pressMR() {
-    // memClicks = 1;
-    // equation.splice(0, equation.length); 
-    // expression = "";
-
-    // display.value = "";
-    console.log(equation);
-    console.log(expression);
-    console.log(display.value);
-}
-
-//Clears memory
+//Clears memory, equation, expressions, and display
 function pressMC() {
     pressOn();
     M = 0;
@@ -489,7 +492,7 @@ function pressMRC() {
     display.value = M;
 }
 
-//Adds current expression to 
+//Subtracts currently displayed expression to M value
 function pressMminus() {
     memClicks = 1;
     equation.splice(0, equation.length); 
@@ -499,6 +502,7 @@ function pressMminus() {
     M -= result;
 }
 
+//Adds currently displayed expression to M value
 function pressMplus() {
     memClicks = 1;
     equation.splice(0, equation.length); 
