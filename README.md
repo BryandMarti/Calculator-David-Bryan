@@ -1,5 +1,5 @@
 # Calculator-David-Bryan
-In collaboration with David Flores
+In collaboration with David Flores and Bryan Martinez
 
 We developed the BEL-DOFT 075s Calculator with a primary objective: to revolutionize the interface of our current internet calculator while infusing it with a vintage aesthetic, yet ensuring it retains all the functionalities of a cutting-edge calculator. Our approach was inspired by one main goal, to pioneer new design thinking.
 
