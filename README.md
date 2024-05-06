@@ -12,7 +12,7 @@ Off: Turns off calculator.
 
 Mem: Retrieves previous calculations. Calculations are automatically saved after pressing '=' button.
                 
-##M Buttons
+## M Buttons
 
 MC: Clears the user saved value of M.
 
