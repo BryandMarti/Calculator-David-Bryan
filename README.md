@@ -7,39 +7,69 @@ On the technical front, we've integrated three additional features, alongside th
 
 ###BUTTONS
 ON/C: Turns on calculator if off or clears memory and display if already on.
+
 Off: Turns off calculator.
+
 Mem: Retrieves previous calculations. Calculations are automatically saved after pressing '=' button.
                 
 ##M Buttons
+
 MC: Clears the user saved value of M.
+
 MRC: Displays the value of M (value controlled by user with M buttons)
+
 M-: Subtracts M value with what is displayed on the screen.
+
 M+:  Adds M value with what is displayed on the screen.
-                
+
+    
 ##OPERATORS
+
 √: Square root operator.
+
 %: Modulo Operator. Gives remainder of a division calculation.
+
 ÷: Division operator.
+
 x: Multiplication operator.
+
 -: Subtraction operator.
+
 +: Addition operator.
+
 x²: Exponent operator of power 2.
 
+
+
 ##NUMBERS
+
 0: Enters number 0.
+
 1: Enters number 1.
+
 2: Enters number 2.
+
 3: Enters number 3.
+
 4: Enters number 4.
+
 5: Enters number 5.
+
 6: Enters number 6.
+
 7: Enters number 7.
+
 8: Enters number 8.
+
 9: Enters number 9.
 
+
 ##Misc.
+
 .: Enters a decimal point
+
 =: Evaluates what is displayed.
+
 
 >[!NOTE]
 >###IMPORTANT NOTES/ERROR HANDLING:
