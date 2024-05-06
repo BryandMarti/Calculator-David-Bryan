@@ -74,8 +74,11 @@ x²: Exponent operator of power 2.
 >[!NOTE]
 > ### IMPORTANT NOTES/ERROR HANDLING:
  >  Adding a new operator while another operator is already selected replaces the old operator with the new one.
- >  Starting off an equation with an operator shows the error 'ERR: invalid', except for square root operator.
+
+>  Starting off an equation with an operator shows the error 'ERR: invalid', except for square root operator.
+ 
  >  Can store a theoretically infinite amount of calculations in the memory, with Mem button.
+ 
  >  Square root, exponent, modulo, and Memory functionality.
 
 
