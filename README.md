@@ -5,7 +5,7 @@ We developed the BEL-DOFT 075s Calculator with a primary objective: to revolutio
 
 On the technical front, we've integrated three additional features, alongside the optional challenge component. These invaluable enhancements to our calculator prompt me to request a top-tier evaluation, as we not only met; but exceeded expectations. We've crafted a distinctly retro calculator with a single line of code that functions seamlessly and breathes new life into the calculator and website interface.
 
-###BUTTONS
+### BUTTONS
 ON/C: Turns on calculator if off or clears memory and display if already on.
 
 Off: Turns off calculator.
@@ -23,7 +23,7 @@ M-: Subtracts M value with what is displayed on the screen.
 M+:  Adds M value with what is displayed on the screen.
 
     
-##OPERATORS
+## OPERATORS
 
 √: Square root operator.
 
@@ -41,7 +41,7 @@ x²: Exponent operator of power 2.
 
 
 
-##NUMBERS
+## NUMBERS
 
 0: Enters number 0.
 
@@ -64,7 +64,7 @@ x²: Exponent operator of power 2.
 9: Enters number 9.
 
 
-##Misc.
+## Misc.
 
 .: Enters a decimal point
 
@@ -72,7 +72,7 @@ x²: Exponent operator of power 2.
 
 
 >[!NOTE]
->###IMPORTANT NOTES/ERROR HANDLING:
+> ### IMPORTANT NOTES/ERROR HANDLING:
  >  Adding a new operator while another operator is already selected replaces the old operator with the new one.
  >  Starting off an equation with an operator shows the error 'ERR: invalid', except for square root operator.
  >  Can store a theoretically infinite amount of calculations in the memory, with Mem button.
