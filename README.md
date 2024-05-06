@@ -41,7 +41,7 @@ x²: Exponent operator of power 2.
 .: Enters a decimal point
 =: Evaluates what is displayed.
 
-[!NOTE]
+>[!NOTE]
 >###IMPORTANT NOTES/ERROR HANDLING:
  >  Adding a new operator while another operator is already selected replaces the old operator with the new one.
  >  Starting off an equation with an operator shows the error 'ERR: invalid', except for square root operator.
