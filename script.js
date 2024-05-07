@@ -97,7 +97,7 @@ function pressOff() {
 }
 
 //Evaluate expression
-function evaluateInMiddle(){
+function evaluateInMiddle() {
     memClicks = 1;
     if (equation[equation.length - 2] === '√') {
         expression += ")"
@@ -132,7 +132,7 @@ function press0() {
     //Adds digit to a new index if last index was an operator, otherwise adds the digit to the last number
     if (isNaN(equation[equation.length - 1])) {
         equation.push(0);
-    }  else {
+    } else {
         equation[equation.length - 1] += '0';
     }
     //Updates expression and display values
@@ -146,7 +146,7 @@ function press1() {
     //Adds digit to a new index if last index was an operator, otherwise adds the digit to the last number
     if (isNaN(equation[equation.length - 1])) {
         equation.push(1);
-    }  else {
+    } else {
         equation[equation.length - 1] += '1';
     }
     //Updates expression and display values
@@ -160,7 +160,7 @@ function press2() {
     //Adds digit to a new index if last index was an operator, otherwise adds the digit to the last number
     if (isNaN(equation[equation.length - 1])) {
         equation.push(2);
-    }  else {
+    } else {
         equation[equation.length - 1] += '2';
     }
     //Updates expression and display values
@@ -174,7 +174,7 @@ function press3() {
     //Adds digit to a new index if last index was an operator, otherwise adds the digit to the last number
     if (isNaN(equation[equation.length - 1])) {
         equation.push(3);
-    }  else {
+    } else {
         equation[equation.length - 1] += '3';
     }
     //Updates expression and display values
@@ -190,7 +190,7 @@ function press4() {
     //Adds digit to a new index if last index was an operator, otherwise adds the digit to the last number
     if (isNaN(equation[equation.length - 1])) {
         equation.push(4);
-    }  else {
+    } else {
         equation[equation.length - 1] += '4';
     }
     //Updates expression and display values
@@ -205,7 +205,7 @@ function press5() {
     //Adds digit to a new index if last index was an operator, otherwise adds the digit to the last number
     if (isNaN(equation[equation.length - 1])) {
         equation.push(5);
-    }  else {
+    } else {
         equation[equation.length - 1] += '5';
     }
     //Updates expression and display values
@@ -220,7 +220,7 @@ function press6() {
     //Adds digit to a new index if last index was an operator, otherwise adds the digit to the last number
     if (isNaN(equation[equation.length - 1])) {
         equation.push(6);
-    }  else {
+    } else {
         equation[equation.length - 1] += '6';
     }
     //Updates expression and display values
@@ -235,7 +235,7 @@ function press7() {
     //Adds digit to a new index if last index was an operator, otherwise adds the digit to the last number
     if (isNaN(equation[equation.length - 1])) {
         equation.push(7);
-    }  else {
+    } else {
         equation[equation.length - 1] += '7';
     }
     //Updates expression and display values
@@ -250,7 +250,7 @@ function press8() {
     //Adds digit to a new index if last index was an operator, otherwise adds the digit to the last number
     if (isNaN(equation[equation.length - 1])) {
         equation.push(8);
-    }  else {
+    } else {
         equation[equation.length - 1] += '8';
     }
     //Updates expression and display values
@@ -265,13 +265,15 @@ function press9() {
     //Adds digit to a new index if last index was an operator, otherwise adds the digit to the last number
     if (isNaN(equation[equation.length - 1])) {
         equation.push(9);
-    }  else {
+    } else {
         equation[equation.length - 1] += '9';
     }
     //Updates expression and display values
     expression += 9;
     display.value += "9";
-
+    console.log("1: ")
+    console.log(equation);
+    console.log(expression);
     evaluateInMiddle();
 }
 
@@ -292,10 +294,10 @@ function pressAdd() {
             case '²':
             case '%':
             case '√':
-            //If last element is an operator, replace it
-            display.value = display.value.replace(/[x\+\/\-%]$/, '+');
-            equation[equation.length - 1] = '+';
-            expression = expression.replace(/[x\+\/\-%]$/, '+');
+                //If last element is an operator, replace it
+                display.value = display.value.replace(/[x\+\/\-%]$/, '+');
+                equation[equation.length - 1] = '+';
+                expression = expression.replace(/[x\+\/\-%]$/, '+');
                 break;
             default:
                 equation.push('+');
@@ -418,7 +420,7 @@ function pressSquared() {
             for (const element of equation) {
                 display.value += element;
             }
-            
+
         }
     }
 }
@@ -466,7 +468,7 @@ function pressDec() {
 function pressMem() {
     //Grab last calculations based on amount of clicks
     const result = results[results.length - memClicks];
-    if (!isNaN(result)){
+    if (!isNaN(result)) {
         display.value = result;
         memClicks++;
     } else {
@@ -487,7 +489,7 @@ function pressMC() {
 //Displays M value
 function pressMRC() {
     memClicks = 1;
-    equation.splice(0, equation.length); 
+    equation.splice(0, equation.length);
     expression = "";
     display.value = M;
 }
@@ -495,21 +497,21 @@ function pressMRC() {
 //Subtracts currently displayed expression to M value
 function pressMminus() {
     memClicks = 1;
-    equation.splice(0, equation.length); 
+    equation.splice(0, equation.length);
     expression = "";
     const result = evaluate(display.value);
     if (!isNaN(result))
-    M -= result;
+        M -= result;
 }
 
 //Adds currently displayed expression to M value
 function pressMplus() {
     memClicks = 1;
-    equation.splice(0, equation.length); 
+    equation.splice(0, equation.length);
     expression = "";
     const result = evaluate(display.value);
     if (!isNaN(result))
-    M += result;
+        M += result;
 }
 
 function pressEquals() {
@@ -519,7 +521,7 @@ function pressEquals() {
             display.value = evaluate(display.value);
             console.log('intended: ' + evaluate(display.value));
         }
-        catch(err) {
+        catch (err) {
             display.value = "ERR: invalid data"
         }
     } else {
@@ -532,7 +534,7 @@ function pressEquals() {
 function evaluate(expr) {
     //replaces '{', '}', '(', ')', ',', and '/' with empty string to prevent malicious code
     expr = expr.replaceAll(/[{}()]/gm, "");
-    expr = expr.replaceAll(/[,\/]/gm, "");
+    expr = expr.replaceAll(/[,]/gm, "");
     expr = expr.replaceAll(/Math.sqrt(\d*)(\.?)(\d*)/g, "Math.sqrt(" + '$1$2$3' + ")");
 
     //uses indirect eval to limit the scope and abilities of eval, while still returning accurate information
